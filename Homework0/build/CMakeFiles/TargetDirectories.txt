@@ -1,0 +1,3 @@
+/home/kaya/Games101/homework0/build/CMakeFiles/rebuild_cache.dir
+/home/kaya/Games101/homework0/build/CMakeFiles/edit_cache.dir
+/home/kaya/Games101/homework0/build/CMakeFiles/Transformation.dir
