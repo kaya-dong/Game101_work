@@ -44,5 +44,14 @@ int main(){
     // matrix multiply i * j
     // matrix multiply vector i * v
 
+    float theta = 45.0/180.0*acos(-1);
+    Eigen::Matrix3f R,T;
+    Eigen::Vector3f p(2.0f,1.0f,1.0f);
+    R << cos(theta), -sin(theta), 0 , sin(theta), cos(theta),0, 0, 0, 1;
+    T << 1, 0, 1, 0, 1, 2, 0, 0, 1;
+    std::cout << "Rotate 45°："<< std::endl;
+    std::cout << R*p << std::endl;
+    std::cout << "Translation(1,2)" << std::endl;
+    std::cout << T*R*p <<std::endl;
     return 0;
 }
