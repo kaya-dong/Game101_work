@@ -68,7 +68,7 @@ static bool insideTriangle(float x, float y, const Vector3f* _v)
 
 }
 
-static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
+static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)//重心坐标
 {
     float c1 = (x*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*y + v[1].x()*v[2].y() - v[2].x()*v[1].y()) / (v[0].x()*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*v[0].y() + v[1].x()*v[2].y() - v[2].x()*v[1].y());
     float c2 = (x*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*y + v[2].x()*v[0].y() - v[0].x()*v[2].y()) / (v[1].x()*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*v[1].y() + v[2].x()*v[0].y() - v[0].x()*v[2].y());
@@ -141,6 +141,7 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
 
 //     // TODO : set the current pixel (use the set_pixel function) to the color of the triangle (use getColor function) if it should be painted.
 // }
+
 void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     auto v = t.toVector4();
     int min_x = INT_MAX;
@@ -159,17 +160,14 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
         for (int x = min_x; x <= max_x; x++)
         {
             if (insideTriangle((float)x+0.5, (float)y+0.5, t.v)) //用像素中心点当像素坐标
-            {
-                auto abg = computeBarycentric2D((float)x + 0.5, (float)y + 0.5, t.v);
-                float alpha = std::get<0>(abg);
-                float beta  = std::get<1>(abg);
-                float gamma = std::get<2>(abg);
+            {   //插值
+                auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
                 float w_reciprocal = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
                 float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
                 z_interpolated *= w_reciprocal;
 
-                //上面均为作业已经给出的插值方法直接用即可
-                if (z_interpolated < depth_buf[get_index(x, y)]) //判断当前z值是否小于原来z表此位置的z值
+             
+                if (z_interpolated < depth_buf[get_index(x, y)]) //判断当前z值是否小于原来位置的z值
                 {
                     Eigen::Vector3f p = { (float)x,(float)y, z_interpolated }; //当前坐标
                     set_pixel(p, t.getColor()); 

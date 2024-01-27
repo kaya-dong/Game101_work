@@ -7,7 +7,7 @@
 
 constexpr double MY_PI = 3.1415926;
 
-Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
+Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)//V
 {
     Eigen::Matrix4f view = Eigen::Matrix4f::Identity();
 
@@ -22,13 +22,13 @@ Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
     return view;
 }
 
-Eigen::Matrix4f get_model_matrix(float rotation_angle)
+Eigen::Matrix4f get_model_matrix(float rotation_angle)//M
 {
     Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
     return model;
 }
 
-Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
+Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)//P
 {
     // TODO: Copy-paste your implementation from the previous assignment.
     Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
@@ -58,7 +58,7 @@ int main(int argc, const char** argv)
     Eigen::Vector3f eye_pos = {0,0,5};
 
 
-    std::vector<Eigen::Vector3f> pos
+    std::vector<Eigen::Vector3f> pos//位置
             {
                     {2, 0, -2},
                     {0, 2, -2},
@@ -68,13 +68,13 @@ int main(int argc, const char** argv)
                     {-1, 0.5, -5}
             };
 
-    std::vector<Eigen::Vector3i> ind
+    std::vector<Eigen::Vector3i> ind//索引
             {
                     {0, 1, 2},
                     {3, 4, 5}
             };
 
-    std::vector<Eigen::Vector3f> cols
+    std::vector<Eigen::Vector3f> cols//颜色
             {
                     {217.0, 238.0, 185.0},
                     {217.0, 238.0, 185.0},
