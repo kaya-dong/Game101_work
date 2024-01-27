@@ -1,0 +1,3 @@
+/home/kaya/Game101_work/Homework3/build/CMakeFiles/rebuild_cache.dir
+/home/kaya/Game101_work/Homework3/build/CMakeFiles/edit_cache.dir
+/home/kaya/Game101_work/Homework3/build/CMakeFiles/Rasterizer.dir
